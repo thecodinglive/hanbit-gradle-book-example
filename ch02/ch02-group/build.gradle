@@ -1,0 +1,11 @@
+def myGroup = 'first'
+
+
+task mymemtask1(group: myGroup)<<{
+  println "my mem1"
+}
+
+
+task mymemtask2(group: myGroup)<<{
+  println "my mem2"
+}

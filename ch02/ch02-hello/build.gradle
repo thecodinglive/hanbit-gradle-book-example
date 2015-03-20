@@ -1,0 +1,3 @@
+task hello{
+   Println ‘Gradle Hello’
+}

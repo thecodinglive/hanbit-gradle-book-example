@@ -1,0 +1,15 @@
+task cellphone{
+  description = 'Display calling message'
+
+  doLast{
+    println '통화하기'
+  }
+
+  doFirst{
+     println '전화걸기'
+  }
+
+  doLast{
+     println '전화끊기'
+  }
+}

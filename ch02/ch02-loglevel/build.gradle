@@ -1,0 +1,11 @@
+defaultTasks 'myBasicTask'
+
+
+task myBasicTask(description:'디폴트 테스크입니다.', dependsOn:'other')<<{
+  logging.level = LogLevel.DEBUG
+  println "default task"
+}
+
+task other<<{
+  println "other run"
+}

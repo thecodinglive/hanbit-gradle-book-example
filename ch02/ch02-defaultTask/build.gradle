@@ -1,0 +1,10 @@
+defaultTasks 'myBasicTask'
+
+
+task myBasicTask<<{
+    println "default task"
+}
+
+task other<<{
+  println "other run"
+}
