@@ -1,0 +1,6 @@
+task run << {
+  println 'running now'
+}
+task start{
+ println 'ready'
+}

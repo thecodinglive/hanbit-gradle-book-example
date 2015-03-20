@@ -1,0 +1,10 @@
+defaultTasks 'myBasicTask'
+
+
+task myBasicTask<<(description:'디폴트 태스크입니다.'){
+    println "default task"
+}
+
+task other<<{
+  println "other run"
+}
