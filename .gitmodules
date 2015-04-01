@@ -1,0 +1,3 @@
+[submodule "ch05"]
+	path = ch05
+	url = https://github.com/sjyun/gradlespring.git
