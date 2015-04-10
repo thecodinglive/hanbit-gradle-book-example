@@ -1,0 +1,25 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'war'
+apply plugin: 'jetty'
+
+group = 'com.thecodinglive.maven'
+version = '1.0-SNAPSHOT'
+
+description = """simple-webapp"""
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+buildDir = 'target';
+
+
+repositories {
+        
+     maven { url "http://repo.maven.apache.org/maven2" }
+}
+dependencies {
+    compile group: 'com.google.guava', name: 'guava', version:'13.0.1'
+    testCompile group: 'junit', name: 'junit', version:'3.8.1'
+    providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version:'3.1.0'
+}
