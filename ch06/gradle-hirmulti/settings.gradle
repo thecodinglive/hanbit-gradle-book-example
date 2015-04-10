@@ -1,0 +1,2 @@
+include 'myroot', 'proj1', 'proj2'
+rootProject.name = 'gradle-hirmulti'
