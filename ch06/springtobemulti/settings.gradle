@@ -1,0 +1,2 @@
+rootProject.name = 'springtobemulti'
+include 'HibernateSub','WebAppSub'

@@ -1,0 +1,80 @@
+apply plugin: 'base'
+
+subprojects{
+
+	apply plugin: 'java'
+	apply plugin: 'maven'
+	apply plugin: 'idea'
+	apply plugin: 'eclipse'
+	apply plugin: 'eclipse-wtp'
+	apply plugin: 'groovy'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    /*
+      encoding
+    */
+      [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+
+ext{
+	 javaVersion = '1.8'
+	 springVersion = '3.2.9.RELEASE'
+	 slf4jVersion = '1.7.5'
+	 logbackVersion = '1.0.13'
+ }
+
+
+repositories {
+        mavenLocal()
+        jcenter()
+    }
+
+List loggers = [
+    "org.slf4j:slf4j-api:${slf4jVersion}",
+    "org.slf4j:jcl-over-slf4j:${slf4jVersion}",
+    "org.slf4j:log4j-over-slf4j:${slf4jVersion}",
+    "org.slf4j:jul-to-slf4j:${slf4jVersion}",
+    "ch.qos.logback:logback-core:${logbackVersion}",
+    "ch.qos.logback:logback-classic:${logbackVersion}"
+]
+
+
+configurations {
+    all.collect { configuration ->
+        configuration.exclude group: 'commons-logging', module: 'commons-logging'
+        configuration.exclude group: 'log4j', module: 'log4j'
+        configuration.exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+        configuration.exclude group: 'org.slf4j', module: 'slf4j-jcl'
+        configuration.exclude group: 'org.slf4j', module: 'slf4j-jdk14'
+    }
+}
+
+
+dependencies{
+
+    compile localGroovy()
+    compile loggers
+
+    compile group: 'mysql', name: 'mysql-connector-java', version:'5.1.21'
+    compile group: 'org.hsqldb', name: 'hsqldb', version:'2.3.2'
+    compile group: 'commons-dbcp', name: 'commons-dbcp', version:'1.4'
+    compile group: 'javassist', name: 'javassist', version:'3.12.1.GA'
+
+    compile group: 'org.springframework', name: 'spring-tx', version:'3.2.9.RELEASE'
+    compile group: 'org.springframework', name: 'spring-jdbc', version:'3.2.9.RELEASE'
+		compile "org.springframework:spring-context:${springVersion}"
+    compile "org.springframework:spring-aspects:${springVersion}"
+		compile "org.springframework:spring-beans:${springVersion}"
+
+
+
+    compile group: 'cglib', name: 'cglib', version:'2.2.2'
+
+    testCompile group: 'junit', name: 'junit', version:'4.7'
+    testCompile group: 'org.springframework', name: 'spring-test', version:'3.2.9.RELEASE'
+    testCompile group: 'org.springframework', name: 'spring-test-mvc', version:'1.0.0.M1'
+  }
+
+}

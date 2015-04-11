@@ -1,0 +1,57 @@
+apply plugin: 'war'
+apply plugin:'tomcat'
+
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath 'org.gradle.api.plugins:gradle-tomcat-plugin:1.0'
+
+    }
+}
+
+repositories {
+
+    mavenLocal()
+    jcenter()
+    maven { url "http://maven.springframework.org/milestone" }
+}
+
+
+
+dependencies {
+
+
+    compile project(':HibernateSub')
+    compile group: 'org.springframework', name: 'spring-webmvc', version:'3.2.9.RELEASE'
+
+    providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+    providedCompile 'javax.servlet:jsp-api:2.0'
+
+    runtime  group: 'jstl', name: 'jstl', version:'1.2'
+
+    /*
+      tomcat setting
+    */
+    String tomcatVersion = '7.0.47'
+     tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}"
+    tomcat "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}"
+    tomcat("org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}") {
+        exclude group: 'org.eclipse.jdt.core.compiler', module: 'ecj'
+    }
+    providedCompile "org.apache.tomcat:tomcat-servlet-api:${tomcatVersion}"
+
+}
+
+tomcatRun {
+    contextPath = "/"
+    URIEncoding = 'UTF-8'
+    dependsOn war
+}
+
+
+tomcatRunWar{
+   dependsOn war
+}

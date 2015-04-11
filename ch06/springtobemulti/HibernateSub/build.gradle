@@ -1,0 +1,10 @@
+dependencies {
+
+
+    compile group: 'org.hibernate', name: 'hibernate-core', version:'4.2.0.Final'
+    compile group: 'org.hibernate', name: 'hibernate-entitymanager', version:'4.2.0.Final'
+    compile group: 'org.springframework', name: 'spring-orm', version:'3.2.9.RELEASE'
+
+    compile "org.springframework.data:spring-data-jpa:1.7.1.RELEASE"
+
+}
