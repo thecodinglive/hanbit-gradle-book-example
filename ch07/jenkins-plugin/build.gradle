@@ -1,0 +1,43 @@
+buildscript{
+  repositories{ jcenter() }
+  dependencies{
+       classpath 'com.terrafolio:gradle-jenkins-plugin:1.+'
+  }
+}
+
+
+
+apply plugin: "com.terrafolio.jenkins"
+
+jenkins {
+    servers {
+        server1 {
+            url 'http://localhost:7080'
+            secure false         // optional
+            username "" // optional
+            password "" // optional
+        }
+    }
+
+
+
+    defaultServer servers.server1 // optional
+    jobs {
+      build_job{
+          server servers.server1
+          dsl{
+
+               scm{
+                  git('https://github.com/sjyun/Gradle-Spring4-JPA-Hibernate4-WebTemplate.git')
+                }
+                steps{
+                   gradle 'clean build'
+                }
+                publishers{
+                    archiveJunit 'build/test-results/*.xml'
+                    archiveArtifacts 'build/libs/*.war'
+                }
+              }
+    }
+  }
+}
