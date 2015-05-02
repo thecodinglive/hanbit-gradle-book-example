@@ -1,6 +1,6 @@
-package info.thecodinglive.service;
+package info.thecodinglive.hiber.service;
 
-import info.thecodinglive.model.Team;
+import info.thecodinglive.hiber.model.Team;
 
 import java.util.List;
 

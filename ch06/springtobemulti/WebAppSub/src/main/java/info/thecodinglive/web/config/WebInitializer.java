@@ -1,5 +1,6 @@
-package info.thecodinglive.config;
+package info.thecodinglive.web.config;
 
+import info.thecodinglive.hiber.config.DbConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 

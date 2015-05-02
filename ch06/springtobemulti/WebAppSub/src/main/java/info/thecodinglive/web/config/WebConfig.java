@@ -1,4 +1,4 @@
-package info.thecodinglive.config;
+package info.thecodinglive.web.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -18,13 +18,14 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan(basePackages = {"info.thecodinglive.controller"} )
+@ComponentScan(basePackages = {"info.thecodinglive.web.controller"} )
 
 public class WebConfig extends WebMvcConfigurerAdapter{
 
 	  @Override
 	    public void addViewControllers( org.springframework.web.servlet.config.annotation.ViewControllerRegistry registry){
 		  registry.addViewController("/").setViewName("home");
+		  registry.addViewController("/index.html").setViewName("home");
 	    }
 
 	  @Override

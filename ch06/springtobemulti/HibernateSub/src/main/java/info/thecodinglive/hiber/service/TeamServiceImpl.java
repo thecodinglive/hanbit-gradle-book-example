@@ -1,8 +1,9 @@
-package info.thecodinglive.service;
+package info.thecodinglive.hiber.service;
 
 
-import info.thecodinglive.model.Team;
-import info.thecodinglive.repository.TeamDao;
+import info.thecodinglive.hiber.model.Team;
+import info.thecodinglive.hiber.repository.TeamDao;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

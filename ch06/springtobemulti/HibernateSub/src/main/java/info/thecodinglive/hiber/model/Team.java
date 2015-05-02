@@ -1,4 +1,4 @@
-package info.thecodinglive.model;
+package info.thecodinglive.hiber.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

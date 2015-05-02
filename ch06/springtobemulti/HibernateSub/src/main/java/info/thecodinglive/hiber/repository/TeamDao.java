@@ -1,6 +1,7 @@
-package info.thecodinglive.repository;
+package info.thecodinglive.hiber.repository;
 
-import info.thecodinglive.model.Team;
+import info.thecodinglive.hiber.model.Team;
+
 
 import java.util.List;
 

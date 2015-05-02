@@ -21,6 +21,21 @@ run{
   }
 }
 
+jar{
+  from files(sourceSets.main.output.classesDir)
+   from {configurations.compile.collect {zipTree(it)}} {
+        exclude "META-INF/*.SF"
+        exclude "META-INF/*.DSA"
+        exclude "META-INF/*.RSA"
+}
+
+  manifest{
+      attributes "Main-Class": "pdfs.ParamPDF"
+  }
+
+}
+
+
 mainClassName = "pdfs.ParamPDF"
 
 task srcZip(type:Zip){

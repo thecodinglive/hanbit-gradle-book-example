@@ -1,4 +1,4 @@
-package info.thecodinglive.config;
+package info.thecodinglive.hiber.config;
 
 import java.util.Properties;
 
@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan(basePackages ={"info.thecodinglive"})
+@ComponentScan(basePackages ={"info.thecodinglive.hiber"})
 @PropertySource("classpath:application.properties")
 public class DbConfig{
 	  private static final String PROPERTY_NAME_DATABASE_DRIVER = "db.driver";
