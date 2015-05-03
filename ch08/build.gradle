@@ -24,20 +24,18 @@ sourceSets {
     }
 }
 
-configurations{
-  testCompile.transitive = false
-}
-
-
 dependencies {
 
-    compile  localGroovy()
+   //compile  localGroovy()
+
+    testCompile 'org.codehaus.groovy:groovy-all:2.4.3'
 
     def gebVersion = "0.10.0"
     def seleniumVersion = "2.45.0"
 
 
-    testCompile 'org.gebish:geb-core:${gebVersion}'
+    testCompile "org.gebish:geb-core:${gebVersion}"
+    testCompile "org.gebish:geb-waiting:${gebVersion}"
 
     // If using JUnit, need to depend on geb-junit (3 or 4)
     testCompile "org.gebish:geb-junit4:${gebVersion}"
@@ -48,6 +46,9 @@ dependencies {
     testRuntime "org.seleniumhq.selenium:selenium-support:${seleniumVersion}"
 
     testCompile "org.gebish:geb-spock:${gebVersion}"
+    testCompile("org.spockframework:spock-core:1.0-groovy-2.4") {
+        exclude group: "org.codehaus.groovy"
+    }
 }
 
 
