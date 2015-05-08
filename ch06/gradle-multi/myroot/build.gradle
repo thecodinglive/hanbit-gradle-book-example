@@ -1,0 +1,14 @@
+allprojects {
+    task printProjName << {
+        println "${project.name}"
+    }
+}
+
+subprojects{
+    subproject ->
+        afterEvaluate{
+            if(subproject.plugins.hasPlugin("java")){
+                println "java 적용된 project name: $subproject.name"
+            }
+        }
+}
