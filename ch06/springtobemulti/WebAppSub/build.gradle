@@ -1,5 +1,6 @@
 apply plugin: 'war'
 apply plugin:'tomcat'
+apply plugin: 'com.bmuschko.cargo'
 
 buildscript {
     repositories {
@@ -8,6 +9,7 @@ buildscript {
     }
     dependencies {
         classpath 'org.gradle.api.plugins:gradle-tomcat-plugin:1.0'
+        classpath 'com.bmuschko:gradle-cargo-plugin:2.1'
 
     }
 }
@@ -51,7 +53,30 @@ tomcatRun {
     dependsOn war
 }
 
+cargo{
+    containerId ="tomcat8x"
+    port = 8080
 
+    deployable{
+        context = "teammgmt"
+    }
+    remote{
+        port=8080
+        username='grayjin'
+        password='pwd'
+        hostname='192.168.59.103'
+    }
+
+    local{
+        homeDir = file('D:/was/tom8')
+        outputFile = file('build/output.log')
+        timeout = 60000
+    }
+}
+
+cargoRunLocal.dependsOn assemble
+cargoDeployRemote.dependsOn assemble
+cargoRedeployRemote.dependsOn assemble
 tomcatRunWar{
    dependsOn war
 }
