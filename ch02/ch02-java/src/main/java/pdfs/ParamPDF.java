@@ -11,11 +11,17 @@ import com.itextpdf.text.pdf.PdfWriter;
 public class ParamPDF {
 
     public static final String RESULT
-        = "build/my.pdf";
+        = "my.pdf";
+    public static final String  msg
+       = "Hello";
 
     public static void main(String[] args)
     	throws DocumentException, IOException {
-    	new ParamPDF().createPdf(RESULT, args[0]);
+        if(args.length ==0 ){
+            new ParamPDF().createPdf(RESULT, msg);
+        }else {
+            new ParamPDF().createPdf(RESULT, args[0]);
+        }
     }
 
     public void createPdf(String filename, String word)
@@ -24,11 +30,7 @@ public class ParamPDF {
         Document document = new Document();
         PdfWriter.getInstance(document, new FileOutputStream(filename));
         document.open();
-        /*
-        if(word.length == 0){
-          word = "hello2";
-        }
-        */
+
         document.add(new Paragraph( word ));
 
         document.close();
