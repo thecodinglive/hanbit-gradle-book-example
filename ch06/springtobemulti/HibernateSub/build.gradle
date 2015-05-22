@@ -1,10 +1,15 @@
 dependencies {
 
 
-    compile group: 'org.hibernate', name: 'hibernate-core', version:'4.2.0.Final'
-    compile group: 'org.hibernate', name: 'hibernate-entitymanager', version:'4.2.0.Final'
+    compile group: 'org.hibernate', name: 'hibernate-core', version:'4.3.5.Final'
+    compile group: 'org.hibernate', name: 'hibernate-entitymanager', version:'4.3.5.Final'
     compile group: 'org.springframework', name: 'spring-orm', version:'3.2.9.RELEASE'
 
-    compile "org.springframework.data:spring-data-jpa:1.7.1.RELEASE"
+    compile("org.springframework.data:spring-data-jpa:1.7.1.RELEASE"){
+        exclude group:"org.aspectj"
+    }
 
+    testCompile 'org.mockito:mockito-all:1.10.19'
+
+    testCompile group: 'org.testng', name: 'testng', version: '6.8.7'
 }

@@ -19,6 +19,7 @@ public class TeamServiceImpl implements TeamService{
 
     @Override
     public void addTeam(Team team) {
+        System.out.println(teamDao);
         teamDao.addTeam(team);
     }
 
