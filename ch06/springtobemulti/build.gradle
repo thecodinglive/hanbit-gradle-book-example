@@ -1,13 +1,19 @@
 apply plugin: 'base'
 
+
+configure(allprojects){
+    apply plugin: 'java'
+    apply plugin: 'maven'
+    apply plugin: 'idea'
+    apply plugin: 'groovy'
+}
+
 subprojects{
 
-	apply plugin: 'java'
-	apply plugin: 'maven'
-	apply plugin: 'idea'
+
 	apply plugin: 'eclipse'
 	apply plugin: 'eclipse-wtp'
-	apply plugin: 'groovy'
+
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
@@ -20,7 +26,7 @@ subprojects{
 
 ext{
 	 javaVersion = '1.8'
-	 springVersion = '3.2.9.RELEASE'
+	 springVersion = "3.2.9.RELEASE"
 	 slf4jVersion = '1.7.5'
 	 logbackVersion = '1.0.13'
  }
@@ -40,6 +46,13 @@ List loggers = [
     "ch.qos.logback:logback-classic:${logbackVersion}"
 ]
 
+    def springModule = [
+            "org.springframework:spring-context:${springVersion}",
+            "org.springframework:spring-aspects:${springVersion}",
+            "org.springframework:spring-beans:${springVersion}",
+            "org.springframework:spring-jdbc:${springVersion}",
+            "org.springframework:spring-tx:${springVersion}"
+    ]
 
 configurations {
     all.collect { configuration ->
@@ -49,32 +62,48 @@ configurations {
         configuration.exclude group: 'org.slf4j', module: 'slf4j-jcl'
         configuration.exclude group: 'org.slf4j', module: 'slf4j-jdk14'
     }
+
+    compile{
+        resolutionStrategy.force springModule
+    }
 }
+
+
 
 
 dependencies{
 
-    compile localGroovy()
+    //compile localGroovy()
+    compile 'org.codehaus.groovy:groovy-all:2.4.3'
     compile loggers
+
+    compile springModule
 
     compile group: 'mysql', name: 'mysql-connector-java', version:'5.1.21'
     compile group: 'org.hsqldb', name: 'hsqldb', version:'2.3.2'
     compile group: 'commons-dbcp', name: 'commons-dbcp', version:'1.4'
     compile group: 'javassist', name: 'javassist', version:'3.12.1.GA'
 
-    compile group: 'org.springframework', name: 'spring-tx', version:"${springVersion}"
-    compile group: 'org.springframework', name: 'spring-jdbc', version:"${springVersion}"
-    compile "org.springframework:spring-context:${springVersion}"
-    compile "org.springframework:spring-aspects:${springVersion}"
-    compile "org.springframework:spring-beans:${springVersion}"
-
-
-
     compile group: 'cglib', name: 'cglib', version:'2.2.2'
 
     testCompile group: 'junit', name: 'junit', version:'4.7'
     testCompile group: 'org.springframework', name: 'spring-test', version:"${springVersion}"
     testCompile group: 'org.springframework', name: 'spring-test-mvc', version:'1.0.0.M1'
+    testCompile 'org.kubek2k:springockito-annotations:1.0.9'
+    testCompile  "cglib:cglib-nodep:3.1"
+
+    testCompile('org.spockframework:spock-core:1.0-groovy-2.4') {
+        exclude group: "org.codehaus.groovy"
+    }
   }
 
+}
+
+idea{
+    module{
+        downloadSources = true
+        downloadJavadoc = false
+        inheritOutputDirs = false
+        outputDir = file("${buildDir}/classes/main")
+    }
 }
