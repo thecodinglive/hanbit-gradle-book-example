@@ -28,14 +28,14 @@ jenkins {
           dsl{
 
                scm{
-                  git('https://github.com/sjyun/Gradle-Spring4-JPA-Hibernate4-WebTemplate.git')
+                  git('https://github.com/sjyun/temp.git')
                 }
                 steps{
-                   gradle 'clean build'
+                   gradle 'webappsub:clean build'
                 }
                 publishers{
-                    archiveJunit 'build/test-results/*.xml'
-                    archiveArtifacts 'build/libs/*.war'
+                    archiveJunit 'WebAppSub/build/test-results/*.xml'
+                    archiveArtifacts 'WebAppSub/build/libs/*.war'
                 }
               }
     }
