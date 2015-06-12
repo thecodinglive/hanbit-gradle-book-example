@@ -1,6 +1,7 @@
 # hanbit-gradle-book-example
 here is gradle book korea version example project for the HanbitMedia RealTime Series of Gradle Book
 
+<img src="http://i.imgur.com/lJnkuRs.jpg" width="350" height="450"/>
 ##Gradle 목차
 
 	1.Gradle 소개
