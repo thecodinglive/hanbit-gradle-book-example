@@ -1,0 +1,30 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'war'
+apply plugin: 'eclipse'
+apply plugin: 'eclipse-wtp'
+
+group 'co.kr.hanbit'
+version ='1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    providedCompile 'javax.servlet:javax.servlet-api:3.0.1'
+    compile 'org.springframework:spring-webmvc:3.2.9.RELEASE'
+    runtime 'javax.servlet:jstl:1.1.2'
+}
+
+
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            mavenLocal()
+            pom.version='1.0'
+            pom.artifactId='maven-gradle'
+        }
+    }
+}
