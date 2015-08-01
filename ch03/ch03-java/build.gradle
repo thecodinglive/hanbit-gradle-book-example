@@ -1,6 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'application'
 
+
 repositories {
     jcenter()
 }
@@ -11,6 +12,8 @@ dependencies {
     compile 'com.itextpdf:itextpdf:5.5.5'
     testCompile 'junit:junit:4.12'
 }
+
+
 
 
 
@@ -45,6 +48,8 @@ task srcZip(type:Zip){
 
    archiveName = "$project.name-sources.zip"
 }
+
+
 
 task srcTar(type:Tar){
    classifier = 'src'
