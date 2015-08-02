@@ -1,0 +1,162 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'war'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+apply plugin: 'jetty'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'groovy'
+
+group = 'info.thecodinglive'
+version = '0.0.1-SNAPSHOT'
+
+description = """"""
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+ext{
+     javaVersion = '1.8'
+	 springVersion = '4.1.5.RELEASE'
+	slf4jVersion = '1.7.5'
+    logbackVersion = '1.0.13'
+ }
+
+
+buildDir = 'build'
+
+
+sourceSets {
+    main {
+        groovy {
+            srcDirs = ['src/main/groovy']
+        }
+        java {
+        	srcDirs = ['src/main/java']
+        }
+    }
+
+    test {
+        groovy {
+            srcDirs = ['test/groovy']
+        }
+        java{
+        	srcDirs = ['test/java']
+        }
+    }
+}
+
+
+task initProject << {
+    sourceSets*.java.srcDirs*.each { it.mkdirs() }
+    sourceSets*.resources.srcDirs*.each { it.mkdirs() }
+
+
+    def webappDir = "$rootDir/src/main/webapp"
+
+
+    file(webappDir + "/WEB-INF/views").mkdirs()
+    file(webappDir + "/META-INF").mkdir()
+
+}
+
+idea{
+    module{
+        downloadSources = true
+        downloadJavadoc = false
+        inheritOutputDirs = false
+        outputDir = file("${buildDir}/classes/main")
+    }
+}
+
+
+eclipse{
+    classpath {
+        downloadSources = true
+        defaultOutputDir = file("${buildDir}/classes/main")
+        file{
+            withXml{
+                xml -> def node = xml.asNode()
+                    node.remove( node.find {it.@path == 'org.eclipse.jst.j2ee.internal.web.container'})
+                    node.appendNode('classpathentry',[kind:'con',path: 'org.eclipse.jst.j2ee.internal.web.container', exported:'true'])
+            }
+        }
+    }
+
+    jdt{
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+
+    wtp{
+        component{
+            contextPath ='/'
+        }
+        facet{
+            facet name :'jst.web',   version:'3.0'
+            facet name : 'jst.java', version:'1.8'
+        }
+    }
+}
+
+
+
+repositories {
+
+    mavenLocal()
+    maven { url "http://maven.springframework.org/milestone" }
+    maven { url "http://repo.maven.apache.org/maven2" }
+}
+
+
+List loggers = [
+    "org.slf4j:slf4j-api:${slf4jVersion}",
+    "org.slf4j:jcl-over-slf4j:${slf4jVersion}",
+    "org.slf4j:log4j-over-slf4j:${slf4jVersion}",
+    "org.slf4j:jul-to-slf4j:${slf4jVersion}",
+    "ch.qos.logback:logback-core:${logbackVersion}",
+    "ch.qos.logback:logback-classic:${logbackVersion}"
+]
+
+
+configurations {
+    all.collect { configuration ->
+        configuration.exclude group: 'commons-logging', module: 'commons-logging'
+        configuration.exclude group: 'log4j', module: 'log4j'
+        configuration.exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+        configuration.exclude group: 'org.slf4j', module: 'slf4j-jcl'
+        configuration.exclude group: 'org.slf4j', module: 'slf4j-jdk14'
+    }
+}
+
+
+dependencies {
+
+	compile localGroovy()
+	compile loggers
+    compile group: 'org.hibernate', name: 'hibernate-core', version:'4.2.0.Final'
+    compile group: 'org.hibernate', name: 'hibernate-entitymanager', version:'4.2.0.Final'
+    compile group: 'mysql', name: 'mysql-connector-java', version:'5.1.21'
+    compile group: 'org.hsqldb', name: 'hsqldb', version:'2.3.2'
+    compile group: 'commons-dbcp', name: 'commons-dbcp', version:'1.4'
+    compile group: 'javassist', name: 'javassist', version:'3.12.1.GA'
+    compile group: 'org.springframework', name: 'spring-webmvc', version:'3.2.9.RELEASE'
+    compile group: 'org.springframework', name: 'spring-tx', version:'3.2.9.RELEASE'
+    compile group: 'org.springframework', name: 'spring-jdbc', version:'3.2.9.RELEASE'
+    compile group: 'org.springframework', name: 'spring-orm', version:'3.2.9.RELEASE'
+    compile group: 'cglib', name: 'cglib', version:'2.2.2'
+    compile group: 'jstl', name: 'jstl', version:'1.2'
+   
+    testCompile group: 'junit', name: 'junit', version:'4.7'
+    testCompile group: 'org.springframework', name: 'spring-test', version:'3.2.9.RELEASE'
+    testCompile group: 'org.springframework', name: 'spring-test-mvc', version:'1.0.0.M1'
+    providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version:'3.0.1'
+    
+    compile "org.springframework.data:spring-data-jpa:1.7.1.RELEASE"
+    
+    //jason
+    compile 'com.fasterxml.jackson.core:jackson-core:2.5.1'
+	compile 'com.fasterxml.jackson.core:jackson-annotations:2.5.1'
+	compile 'com.fasterxml.jackson.core:jackson-databind:2.5.1'
+	
+}
