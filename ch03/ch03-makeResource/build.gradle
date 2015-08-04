@@ -1,0 +1,52 @@
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+
+repositories {
+    jcenter()
+}
+buildDir = 'build'
+
+
+
+dependencies {
+    compile 'org.slf4j:slf4j-api:1.7.5'
+    testCompile 'junit:junit:4.11'
+}
+
+
+task makeResourceFolder << {
+   sourceSets*.resources.srcDirs*.each {it.mkdirs()}
+}
+
+task initJavaFolder << {
+   sourceSets*.java.srcDirs*.each { it.mkdirs() }
+   sourceSets*.resources.srcDirs*.each {it.mkdirs() }
+}
+
+
+sourceSets{
+  main{
+     java{
+        srcDirs = ['src', 'mysrc']
+     }
+  }
+
+  test{
+     java{
+       srcDirs = ['test', 'mytest']
+     }
+  }
+}
+
+task printJavafolder <<{
+
+  sourceSets {
+       main{
+            println "java.srcDirs = ${java.srcDirs}"
+            println "resources.srcDirs = ${resources.srcDirs}"
+     }
+   }
+}
