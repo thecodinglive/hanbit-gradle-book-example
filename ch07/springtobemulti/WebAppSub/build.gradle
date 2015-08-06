@@ -73,8 +73,8 @@ cargo{
     }
 
     local{
-        homeDir = file('D:/was/tom8')
-        outputFile = file('build/output.log')
+        homeDir = file(tomcatLocalDir)
+        outputFile = file(tomcatLogDir)
         timeout = 60000
     }
 }
