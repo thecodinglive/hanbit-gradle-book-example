@@ -58,26 +58,28 @@ tomcatRun {
     dependsOn war
 }
 
-cargo{
-    containerId ="tomcat8x"
+cargo {
+    containerId = "tomcat8x"
     port = 8080
 
-    deployable{
+    deployable {
         context = "teammgmt"
     }
-    remote{
-        port=8080
-        username='grayjin'
-        password='pwd'
-        hostname='192.168.59.103'
+    remote {
+        port = 8080
+        username = 'grayjin'
+        password = 'pwd'
+        hostname = '192.168.59.103'
     }
 
     local{
-        homeDir = file(tomcatLocalDir)
-        outputFile = file(tomcatLogDir)
+       homeDir = file('D:/was/tom8')
+       outputFile = file('build/output.log')
+
         timeout = 60000
     }
 }
+
 
 cargoRunLocal.dependsOn assemble
 cargoDeployRemote.dependsOn assemble
